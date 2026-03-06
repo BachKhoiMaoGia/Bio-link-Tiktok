@@ -305,6 +305,9 @@ h1 {
         width: 38px;
         height: 38px;
     }
+    .cat-grid {
+        grid-template-columns: 1fr !important;
+    }
 }
 
 /* === In-App Browser Banner === */
@@ -322,4 +325,115 @@ h1 {
     font-size: 13px;
     font-weight: 600;
     line-height: 1.5;
+}
+
+/* === Shopee Category Section === */
+.shopee-section {
+    margin-bottom: 8px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.section-icon {
+    font-size: 20px;
+}
+
+.section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    flex: 1;
+}
+
+.section-viewall {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ee4d2d;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+.section-viewall:hover { opacity: 0.8; }
+
+.cat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.cat-card {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+    aspect-ratio: 16 / 9;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cat-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(238, 77, 45, 0.4);
+    box-shadow: 0 6px 20px rgba(238, 77, 45, 0.2);
+}
+
+.cat-card:active {
+    transform: scale(0.97);
+}
+
+.cat-card-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    display: flex;
+}
+.cat-card-bg img {
+    width: 33.33%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cat-card-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.75) 100%);
+}
+
+.cat-card-info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 10px 12px;
+}
+
+.cat-card-name {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.3;
+    display: block;
+}
+
+.cat-card-count {
+    color: rgba(255,255,255,0.6);
+    font-size: 11px;
+    font-weight: 500;
+    display: block;
+    margin-top: 2px;
+}
+
+.cat-card-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: linear-gradient(135deg, #ef4444, #f97316);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
 }

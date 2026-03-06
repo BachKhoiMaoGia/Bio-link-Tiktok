@@ -33,17 +33,15 @@
             </div>
 
             <div class="links">
-                <!-- 1. Shopee -->
-                <a href="shopee.html" class="link-btn" style="--btn-accent: #ee4d2d; --delay: 0">
-                    <div class="btn-icon-box" style="background: linear-gradient(135deg, #ee4d2d, #ff6633)">
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                <!-- Shopee Collection Section -->
+                <div class="shopee-section">
+                    <div class="section-header">
+                        <span class="section-icon">🛒</span>
+                        <span class="section-title">Góc Đồ Tiện Ích Shopee</span>
+                        <a href="shopee.html" class="section-viewall">Xem tất cả →</a>
                     </div>
-                    <div class="btn-content">
-                        <span class="btn-title">Góc Đồ Tiện Ích Shopee</span>
-                        <span class="btn-subtitle">106 sản phẩm tiện ích →</span>
-                    </div>
-                    <div class="btn-badge hot">HOT</div>
-                </a>
+                    <div class="cat-grid" id="catGrid"></div>
+                </div>
 
                 <!-- 2. Momo / Donate -->
                 <a href="#" class="link-btn" onclick="openExternal('https://me.momo.vn/Tieubachmao', event)" style="--btn-accent: #a50064; --delay: 1">
@@ -144,6 +142,47 @@
                 item.style.transform = 'translateY(0)';
             }, 200 + i * 100);
         });
+
+        // Load category cards from products.json
+        fetch('products.json')
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                var grid = document.getElementById('catGrid');
+                if (!grid || !data.products) return;
+                var catNames = Object.keys(data.products);
+                catNames.forEach(function(catName, i) {
+                    var items = data.products[catName];
+                    if (!items || items.length === 0) return;
+                    var card = document.createElement('a');
+                    card.className = 'cat-card';
+                    card.href = 'shopee.html?cat=' + encodeURIComponent(catName);
+
+                    // Lấy 3 ảnh sản phẩm đầu tiên làm background mosaic
+                    var imgs = items.slice(0, 3).map(function(it) { return it.image; });
+                    while (imgs.length < 3) imgs.push(imgs[0]);
+
+                    card.innerHTML =
+                        '<div class="cat-card-bg">' +
+                            imgs.map(function(src) { return '<img loading="lazy" src="' + src + '" alt="">'; }).join('') +
+                        '</div>' +
+                        '<div class="cat-card-overlay"></div>' +
+                        (i === 0 ? '<div class="cat-card-badge">HOT</div>' : '') +
+                        '<div class="cat-card-info">' +
+                            '<span class="cat-card-name">' + catName + '</span>' +
+                            '<span class="cat-card-count">' + items.length + ' sản phẩm</span>' +
+                        '</div>';
+
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(15px)';
+                    grid.appendChild(card);
+                    setTimeout(function() {
+                        card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100 + i * 80);
+                });
+            })
+            .catch(function() {});
     });
     </script>
 </body>
