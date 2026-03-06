@@ -41,7 +41,7 @@
 
     <div class="container">
         <!-- Banner cho in-app browser (ẩn mặc định) -->
-        <div class="inapp-banner" id="inappBanner" style="display:none">
+        <div class="inapp-banner" id="inappBanner">
             <p>🧡 Khi bấm link Shopee, nhớ chọn <strong>"Mở bằng app Shopee"</strong> để ủng hộ bà Mao chút hoa hồng affiliate nha, cảm ơn bạn nhiều lắm! 🙏</p>
         </div>
 
@@ -130,9 +130,6 @@
 
     // Show banner nếu đang trong in-app browser iOS (Telegram, Zalo, IG)
     // Vì iOS in-app browser không thể force mở Safari bằng JS
-    if (isInAppBrowser()) {
-        document.getElementById('inappBanner').style.display = 'block';
-    }
 
     // === Mở link thường (Telegram, FB, Momo, Website) ===
     function openExternal(url, event) {
