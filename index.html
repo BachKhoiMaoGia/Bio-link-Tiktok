@@ -17,6 +17,11 @@
     </div>
 
     <div class="container">
+        <!-- Banner cho in-app browser (ẩn mặc định) -->
+        <div class="inapp-banner" id="inappBanner" style="display:none">
+            <p>📱 Đang mở trong app — bấm <strong>⋯</strong> góc phải rồi chọn <strong>"Mở trong Safari/Trình duyệt"</strong> để mở link tốt hơn!</p>
+        </div>
+
         <div class="card">
             <div class="profile">
                 <div class="avatar-ring">
@@ -94,69 +99,70 @@
     </div>
 
     <script>
-    // === DEEPLINK: Bypass TikTok In-App Browser ===
+    // === DETECT IN-APP BROWSER ===
     function isInAppBrowser() {
         var ua = navigator.userAgent || navigator.vendor || '';
         return /musical_ly|tiktok|bytedancewebview|instagram|fbav|fban|zalo/i.test(ua);
     }
+    var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    var isAndroid = /android/i.test(navigator.userAgent);
 
+    // Show banner nếu đang trong in-app browser iOS (Telegram, Zalo, IG)
+    // Vì iOS in-app browser không thể force mở Safari bằng JS
+    if (isInAppBrowser() && isIOS) {
+        document.getElementById('inappBanner').style.display = 'block';
+    }
+
+    // === Mở link thường (Telegram, FB, Momo, Website) ===
     function openExternal(url, event) {
         if (event) event.preventDefault();
         if (isInAppBrowser()) {
-            var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-            if (isIOS) {
-                window.location.href = url;
-            } else {
+            if (isAndroid) {
+                // Android: dùng intent để văng ra Chrome
                 var intentUrl = 'intent://' + url.replace(/^https?:\/\//, '') +
                     '#Intent;scheme=https;package=com.android.chrome;end';
                 window.location.href = intentUrl;
                 setTimeout(function() { window.location.href = url; }, 500);
+            } else {
+                // iOS in-app: không force được Safari, mở trực tiếp trong webview
+                window.location.href = url;
             }
         } else {
             window.open(url, '_blank');
         }
     }
 
-    // === DEEPLINK: Shopee App ===
+    // === SHOPEE DEEPLINK ===
+    // Chiến lược: mở link collshp trực tiếp → nó redirect tới shopee.vn
+    // → iOS Universal Links / Android App Links sẽ tự mở app Shopee đúng trang
+    // KHÔNG dùng scheme shopeevn:// vì nó không resolve được link rút gọn
     function openShopee(webUrl, event) {
         if (event) event.preventDefault();
-        var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-        var isAndroid = /android/i.test(navigator.userAgent);
 
         if (isInAppBrowser()) {
-            // Đang ở trong TikTok/Zalo/IG → phải văng ra browser trước
-            if (isIOS) {
-                // iOS: mở link web, Safari sẽ handle Universal Link → mở app Shopee
-                window.location.href = webUrl;
-            } else {
-                // Android: dùng intent để mở Chrome, Chrome sẽ handle Shopee deeplink
+            if (isAndroid) {
+                // Android in-app: văng ra Chrome, Chrome sẽ handle App Links shopee.vn
                 var intentUrl = 'intent://' + webUrl.replace(/^https?:\/\//, '') +
                     '#Intent;scheme=https;package=com.android.chrome;end';
                 window.location.href = intentUrl;
                 setTimeout(function() { window.location.href = webUrl; }, 500);
+            } else {
+                // iOS in-app (Telegram, Zalo): mở link trực tiếp
+                // collshp.com redirect → shopee.vn → nếu app cài → hỏi mở app
+                window.location.href = webUrl;
             }
         } else {
-            // Đã ở browser thật → thử mở app Shopee trực tiếp
+            // Đã ở browser thật
             if (isAndroid) {
-                // Android: dùng intent để mở app Shopee, fallback web
+                // Android: dùng intent mở trực tiếp app Shopee với URL gốc
                 var intentShopee = 'intent://' + webUrl.replace(/^https?:\/\//, '') +
-                    '#Intent;scheme=https;package=com.shopee.vn;end';
+                    '#Intent;scheme=https;package=com.shopee.vn;S.browser_fallback_url=' +
+                    encodeURIComponent(webUrl) + ';end';
                 window.location.href = intentShopee;
-                setTimeout(function() { window.location.href = webUrl; }, 1500);
-            } else if (isIOS) {
-                // iOS: thử scheme shopeevn:// trước
-                var shopeeDeeplink = 'shopeevn://web?url=' + encodeURIComponent(webUrl);
-                var clicked = Date.now();
-                window.location.href = shopeeDeeplink;
-                // Nếu sau 1.5s vẫn ở trang → app chưa cài → mở web
-                setTimeout(function() {
-                    if (Date.now() - clicked < 2000) {
-                        window.location.href = webUrl;
-                    }
-                }, 1500);
             } else {
-                // Desktop: mở web bình thường
-                window.open(webUrl, '_blank');
+                // iOS Safari / Desktop: mở link bình thường
+                // collshp.com redirect → shopee.vn → Universal Links tự hỏi mở app
+                window.location.href = webUrl;
             }
         }
     }
