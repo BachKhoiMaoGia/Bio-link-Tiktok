@@ -34,13 +34,13 @@
 
             <div class="links">
                 <!-- 1. Shopee -->
-                <a href="#" class="link-btn" onclick="openShopee('https://collshp.com/tieubachmao', event)" style="--btn-accent: #ee4d2d; --delay: 0">
+                <a href="shopee.html" class="link-btn" style="--btn-accent: #ee4d2d; --delay: 0">
                     <div class="btn-icon-box" style="background: linear-gradient(135deg, #ee4d2d, #ff6633)">
                         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
                     </div>
                     <div class="btn-content">
                         <span class="btn-title">Góc Đồ Tiện Ích Shopee</span>
-                        <span class="btn-subtitle">Mở app Shopee xem ngay →</span>
+                        <span class="btn-subtitle">106 sản phẩm tiện ích →</span>
                     </div>
                     <div class="btn-badge hot">HOT</div>
                 </a>
@@ -129,50 +129,6 @@
             }
         } else {
             window.open(url, '_blank');
-        }
-    }
-
-    // === SHOPEE DEEPLINK ===
-    // Chiến lược hybrid:
-    // Bước 1: Mở link affiliate collshp.com trong tab mới → browser redirect →
-    //         ghi cookie affiliate qua tracking chain
-    // Bước 2: Sau 1.5s thử mở app Shopee bằng scheme shopeevn://
-    //         Nếu app cài → mở app (cookie đã ghi ở bước 1)
-    //         Nếu app chưa cài → user đã ở trang collection trên web rồi
-    function openShopee(webUrl, event) {
-        if (event) event.preventDefault();
-
-        if (isInAppBrowser()) {
-            if (isAndroid) {
-                // Android in-app: văng ra Chrome, Chrome xử lý redirect + App Links
-                var intentUrl = 'intent://' + webUrl.replace(/^https?:\/\//, '') +
-                    '#Intent;scheme=https;package=com.android.chrome;end';
-                window.location.href = intentUrl;
-                setTimeout(function() { window.location.href = webUrl; }, 500);
-            } else {
-                // iOS in-app (Telegram, Zalo): mở link trực tiếp
-                // collshp.com redirect → shopee.vn → iOS hỏi mở app
-                window.location.href = webUrl;
-            }
-        } else {
-            // Đã ở browser thật → chiến lược 2 bước
-            if (isAndroid) {
-                // Android: mở tab affiliate link (ghi cookie) rồi thử intent app
-                var affiliateTab = window.open(webUrl, '_blank');
-                setTimeout(function() {
-                    // Thử mở app Shopee, fallback giữ nguyên tab web
-                    var intentShopee = 'intent://' + webUrl.replace(/^https?:\/\//, '') +
-                        '#Intent;scheme=https;package=com.shopee.vn;S.browser_fallback_url=' +
-                        encodeURIComponent(webUrl) + ';end';
-                    window.location.href = intentShopee;
-                }, 1500);
-            } else if (isIOS) {
-                // iOS Safari: mở link affiliate (redirect ghi cookie + Universal Links hỏi mở app)
-                window.location.href = webUrl;
-            } else {
-                // Desktop
-                window.open(webUrl, '_blank');
-            }
         }
     }
 
