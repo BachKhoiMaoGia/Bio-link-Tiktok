@@ -9,10 +9,10 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     background: #0c0c1d;
     padding: 20px;
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
 }
 

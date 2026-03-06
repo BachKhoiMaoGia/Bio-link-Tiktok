@@ -200,7 +200,7 @@ function showCategory(idx) {{
             card.innerHTML =
                 '<div class="product-img-wrap">' +
                     '<div class="placeholder"></div>' +
-                    '<img class="product-img" loading="lazy" alt="" src="' + item.image + '" onload="this.previousElementSibling.style.display=\'none\'" onerror="this.previousElementSibling.style.display=\'none\';this.style.display=\'none\'">' +
+                    '<img class="product-img" loading="lazy" alt="" src="' + item.image + '" onload="this.previousElementSibling.style.display=\\x27none\\x27" onerror="this.previousElementSibling.style.display=\\x27none\\x27;this.style.display=\\x27none\\x27">' +
                 '</div>' +
                 '<div class="product-info">' +
                     '<div class="product-name">' + item.name + '</div>' +
