@@ -136,7 +136,7 @@ body {{ font-family:'Plus Jakarta Sans',-apple-system,sans-serif; min-height:100
 <body>
     <div class="bg-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div></div>
     <div class="inapp-banner" id="inappBanner" style="display:none">
-        <p>📱 Bấm <strong>⋯</strong> góc phải → <strong>"Mở trong Safari/Trình duyệt"</strong> để mở Shopee tốt hơn!</p>
+        <p>🧡 Khi bấm sản phẩm, nhớ chọn <strong>"Mở bằng app Shopee"</strong> để ủng hộ bà Mao chút hoa hồng affiliate nha, cảm ơn bạn nhiều! 🙏</p>
     </div>
     <div class="header">
         <a href="index.html" class="back-btn">
@@ -159,7 +159,7 @@ var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 var isAndroid = /android/i.test(navigator.userAgent);
 function isInApp() {{ return /musical_ly|tiktok|bytedancewebview|instagram|fbav|fban|zalo/i.test(navigator.userAgent); }}
 
-if (isInApp() && isIOS) document.getElementById('inappBanner').style.display = 'block';
+if (isInApp()) document.getElementById('inappBanner').style.display = 'block';
 
 // Slug helper to match category by slug
 function slugify(str) {{
