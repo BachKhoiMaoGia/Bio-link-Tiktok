@@ -129,14 +129,14 @@ body {{ font-family:'Plus Jakarta Sans',-apple-system,sans-serif; min-height:100
 .product-img-wrap .placeholder {{ position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(110deg,rgba(255,255,255,0.03) 30%,rgba(255,255,255,0.08) 50%,rgba(255,255,255,0.03) 70%); background-size:200% 100%; animation:shimmer 1.5s infinite; }}
 @keyframes shimmer {{ 0%{{background-position:200% 0}} 100%{{background-position:-200% 0}} }}
 .shop-footer {{ text-align:center; padding:20px 16px 32px; color:rgba(255,255,255,0.3); font-size:12px; }}
-.inapp-banner {{ background:rgba(255,193,7,0.15); border:1px solid rgba(255,193,7,0.3); border-radius:12px; padding:12px 16px; margin:0 16px 8px; font-size:13px; color:#ffd54f; line-height:1.5; }}
+.inapp-banner {{ background:rgba(255,193,7,0.15); border:1px solid rgba(255,193,7,0.3); border-radius:12px; padding:12px 16px; margin:0 16px 8px; font-size:13px; color:#ffd54f; line-height:1.5; text-align:center; font-weight:600; }}
 @media (max-width:380px) {{ .products {{ grid-template-columns:repeat(2,1fr); gap:8px; }} .product-info {{ padding:8px 8px 10px; }} }}
     </style>
 </head>
 <body>
     <div class="bg-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div></div>
     <div class="inapp-banner" id="inappBanner">
-        <p>🧡 Khi bấm sản phẩm, nhớ chọn <strong>"Mở bằng app Shopee"</strong> để ủng hộ bà Mao chút hoa hồng affiliate nha, cảm ơn bạn nhiều! 🙏</p>
+        <p>🧡 Khi bấm link Shopee, nhớ chọn <br><strong>"Mở bằng app Shopee"</strong> để ủng hộ bà Mao <br> chút hoa hồng affiliate nha, <br>cảm ơn bạn nhiều lắm! 🙏</p>
     </div>
     <div class="header">
         <a href="index.html" class="back-btn">
