@@ -78,16 +78,17 @@ def generate_html(categories):
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://bachkhoimaogia.github.io/TieuBachMao/shopee.html">
+    <meta property="og:url" content="https://gocphimtieubach.page/shopee.html">
     <meta property="og:title" content="🛒 Góc Đồ Tiện Ích - Tiểu Bạch Mao">
     <meta property="og:description" content="Bộ sưu tập đồ tiện ích Shopee từ Tiểu Bạch Mao 🛒 Bấm vào sản phẩm để mua trực tiếp trên app Shopee!">
-    <meta property="og:image" content="https://bachkhoimaogia.github.io/TieuBachMao/og-image.jpg">
+    <meta property="og:image" content="https://gocphimtieubach.page/og-image.jpg">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="🛒 Góc Đồ Tiện Ích - Tiểu Bạch Mao">
     <meta name="twitter:description" content="Bộ sưu tập đồ tiện ích Shopee từ Tiểu Bạch Mao 🛒 Bấm vào sản phẩm để mua trực tiếp trên app Shopee!">
-    <meta name="twitter:image" content="https://bachkhoimaogia.github.io/TieuBachMao/og-image.jpg">
+    <meta name="twitter:image" content="https://gocphimtieubach.page/og-image.jpg">
+    <link rel="canonical" href="https://gocphimtieubach.page/shopee.html">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
